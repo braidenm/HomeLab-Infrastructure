@@ -26,7 +26,13 @@ jobs:
       - name: Deploy web stack
         run: |
           cd stacks/web
+          docker compose -f compose.yml pull
           docker compose -f compose.yml up -d
 
       - name: Status
         run: docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}'
+
+      - name: Show revision
+        run: |
+          git rev-parse HEAD
+          date -u
