@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> Deploy web (caddy)"
 cd "$ROOT/stacks/web"
+docker compose -f compose.yml pull
 docker compose -f compose.yml up -d
 
 echo "==> Status"

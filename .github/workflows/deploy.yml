@@ -15,23 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Show context
-        run: |
-          whoami
-          hostname
-          docker ps
-          docker compose version
-
       - name: Deploy web stack
         run: |
-          cd stacks/web
-          docker compose -f compose.yml pull
-          docker compose -f compose.yml up -d
-
-      - name: Status
-        run: docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}'
-
-      - name: Show revision
-        run: |
-          git rev-parse HEAD
-          date -u
+          chmod +x ./scripts/deploy.sh
+          ./scripts/deploy.sh
