@@ -1,0 +1,26 @@
+name: Pull_Request
+
+on:
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate compose files
+        run: |
+          set -euo pipefail
+          docker --version
+          docker compose version
+
+          # Validate without starting containers
+          docker compose -f stacks/web/compose.yml config -q
